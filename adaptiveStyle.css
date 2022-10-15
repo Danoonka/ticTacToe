@@ -1,0 +1,156 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Itim', cursive;
+}
+
+.app-container {
+    background-color: #12181B;
+}
+
+.display {
+    margin: 1em 0;
+    font-size: 25px;
+    text-align: center;
+    color: white;
+}
+
+.hide {
+    display: none;
+}
+
+.title {
+    margin-top: 10%;
+    font-size: 2.7434842249657065vw;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+    max-width: 300px;
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid white;
+    cursor: pointer;
+    min-width: 100px;
+    min-height: 100px;
+    font-size: 50px;
+}
+
+.tile.active {
+    background-color: #a09d9d;
+}
+
+.playerX {
+    color: #17c988;
+}
+
+.playerO {
+    color: #498AFB;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+#reset {
+    background-color: #FF3860;
+    color: white;
+    padding: 8px;
+    margin-left: 1em;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar span {
+    font-size: 35px;
+}
+
+.avatar-container {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 7px 5px rgba(230, 190, 190, 0.5);
+    background-color: #fff;
+}
+
+.avatar-container span{
+    margin-top: 200px;
+}
+
+.icons {
+    display: inherit;
+    margin-bottom: 25px;
+}
+
+.avatar-icon {
+    width: 75px;
+    height: 75px;
+}
+
+
+@media screen and (min-width: 991px) {
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10%;
+    }
+
+}
+
+@media screen and (min-width: 769px) and (max-width: 991px){
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10%;
+    }
+
+}
+
+@media screen and (max-width: 769px){
+    .app-container {
+        min-height: 100vh;
+        align-items: center;
+        padding: 0 10%;
+    }
+
+    .avatar-container {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 7px 5px rgba(230, 190, 190, 0.5);
+        background-color: #fff;
+    }
+
+    .square{
+        display: flex;
+        justify-content: space-around;
+    }
+}
