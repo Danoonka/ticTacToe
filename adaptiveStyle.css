@@ -76,6 +76,22 @@
     cursor: pointer;
 }
 
+
+.choose_btn{
+    display: flex;
+    justify-content: space-around;
+}
+.choose_btn button{
+    background-color: #17c988;
+    margin: 10px;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .avatar {
     display: flex;
     flex-direction: column;
