@@ -4,6 +4,8 @@
     font-family: 'Itim', cursive;
 }
 
+
+
 .app-container {
     background-color: #12181B;
 }
@@ -138,8 +140,11 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 991px){
+    .avatar{
+        display: none;
+    }
     .app-container {
-        display: flex;
+        margin: 0 auto;
         min-height: 100vh;
         align-items: center;
         justify-content: space-between;
@@ -149,6 +154,9 @@
 }
 
 @media screen and (max-width: 769px){
+    .avatar{
+        display: none;
+    }
     .app-container {
         min-height: 100vh;
         align-items: center;
@@ -169,4 +177,8 @@
         display: flex;
         justify-content: space-around;
     }
+}
+
+.hidden{
+    display: none;
 }

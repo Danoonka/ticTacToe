@@ -6,6 +6,8 @@ class TicTacToe {
       this.announcer = document.querySelector('.announcer');
       this.heros = document.querySelectorAll('.avatar-icon');
       this.containers = document.querySelectorAll('.avatar-container');
+      this.btnPlayerMode = document.querySelector('.btn_player_mode');
+      this.btnComputerMode = document.querySelector('.btn_computer_mode');
       this.gameRows = [
           ['','',''],
           ['','',''],
@@ -17,6 +19,9 @@ class TicTacToe {
       this.X_win = 'X_win';
       this.O_win = 'O_win';
       this.tie = 'TIE';
+
+      let buttonsType;
+      this.buttonSType = buttonsType;
   }
 
     InitKeyListener(currTile){
@@ -77,7 +82,7 @@ class TicTacToe {
         }
     }
 
-    FillTile(gameRows, gameField, curTile, playerDisplay, O_win, X_win, tie, announcer){
+    FillTile(gameRows, gameField, curTile, playerDisplay, O_win, X_win, tie, announcer, buttonsType){
       console.log(gameRows)
         gameRows.forEach((gameRow, index ) => {
             const rowElem = document.createElement('div');
@@ -90,7 +95,7 @@ class TicTacToe {
                 squareElem.className = 'tile';
                 squareElem.addEventListener('click',  () => {
                     this.FillGap(this.currentPlayer, index, squareIndex, curTile, gameRows, playerDisplay,
-                        O_win, X_win, tie, announcer);
+                        O_win, X_win, tie, announcer, buttonsType);
                 })
                 rowElem.append(squareElem);
             })
@@ -103,7 +108,8 @@ class TicTacToe {
     }
 
     FillGap(curPlayer, index, squareIndex, curTile, gameRows, playerDisplay, O_win, X_win, tie,
-            announcer){
+            announcer, buttonsType){
+
         let tile;
         if (curTile) {
             tile = curTile;
@@ -114,24 +120,13 @@ class TicTacToe {
         tile.dispatchEvent(new CustomEvent('enter', {
             detail: { key: 'Enter' }
         }));
-        if (tile.innerText === '' && gameRows[index][squareIndex] === '') {
-            gameRows[index][squareIndex] = curPlayer;
-            console.log(curPlayer)//fill array gameRows
-            if (curPlayer === 'X'){
-                tile.innerText = 'X';
-                tile.classList.add('playerX');
-                this.currentPlayer = 'O'
-                curPlayer = 'O';
-            }else{
-                tile.innerText = 'O';
-                tile.classList.add('playerO');
-                this.currentPlayer = 'X'
-                curPlayer = 'X';
-            }
-
-            this.ChangePlayer(curPlayer, playerDisplay);
-            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
+        if (buttonsType === 1){
+            this.PlayerMode(tile, gameRows, index, squareIndex, curPlayer, playerDisplay, O_win, X_win, tie, announcer)
+        }else{
+            this.ComputerMode(tile, gameRows, index, squareIndex, curPlayer, playerDisplay, O_win, X_win, tie, announcer)
         }
+
+
     }
 
     GameCombination(gameRows){
@@ -214,6 +209,91 @@ class TicTacToe {
             }
         })
     }
+
+
+    PlayerMode(tile, gameRows, index, squareIndex, curPlayer, playerDisplay, O_win, X_win, tie, announcer, currentPlayer){
+        if (tile.innerText === '' && gameRows[index][squareIndex] === '') {
+            gameRows[index][squareIndex] = curPlayer;
+            console.log(curPlayer)//fill array gameRows
+            if (curPlayer === 'X'){
+                tile.innerText = 'X';
+                tile.classList.add('playerX');
+                this.currentPlayer = 'O'
+                curPlayer = 'O';
+            }else{
+                tile.innerText = 'O';
+                tile.classList.add('playerO');
+                this.currentPlayer = 'X'
+                curPlayer = 'X';
+            }
+
+            this.ChangePlayer(curPlayer, playerDisplay);
+            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
+        }
+    }
+
+    ComputerMode(tile, gameRows, index, squareIndex, curPlayer, playerDisplay, O_win, X_win, tie, announcer, ){
+        if (tile.innerText === '' && gameRows[index][squareIndex] === '') {
+            gameRows[index][squareIndex] = curPlayer;
+            console.log(curPlayer)//fill array gameRows
+            if (curPlayer === 'X'){
+                tile.innerText = 'X';
+                tile.classList.add('playerX');
+                this.currentPlayer = 'O'
+                curPlayer = 'O';
+            }else{
+                tile.innerText = 'O';
+                tile.classList.add('playerO');
+                this.currentPlayer = 'X'
+                curPlayer = 'X';
+            }
+            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
+            this.ComputerTurn(gameRows, this.Rand,curPlayer, O_win, X_win, tie, announcer)
+        }
+    }
+
+
+    ComputerTurn(gameRows, Rand,curPlayer, O_win, X_win, tie, announcer ){
+        let row = Rand(gameRows);
+        let col = Rand(gameRows);
+        let tileComp = document.getElementById('row-'+ row + '-square-' + col)
+        if (gameRows[row][col] === '' && tileComp.innerText === ''){
+            gameRows[row][col] = curPlayer;
+            if (curPlayer === 'X'){
+                tileComp.innerText = 'O';
+                tileComp.classList.add('playerX');
+                this.currentPlayer = 'O'
+                curPlayer = 'O';
+            }else{
+                tileComp.innerText = 'O';
+                tileComp.classList.add('playerO');
+                this.currentPlayer = 'X'
+                curPlayer = 'X';
+            }
+            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
+        }else{
+            this.ComputerTurn(gameRows, Rand,curPlayer, O_win, X_win, tie, announcer)
+        }
+    }
+
+    Turn(curPlayer, tile){
+        if (curPlayer === 'X'){
+            tile.innerText = 'X';
+            tile.classList.add('playerX');
+            this.currentPlayer = 'O'
+            curPlayer = 'O';
+        }else{
+            tile.innerText = 'O';
+            tile.classList.add('playerO');
+            this.currentPlayer = 'X'
+            curPlayer = 'X';
+        }
+    }
+
+    Rand(array){
+        return Math.floor(Math.random() * array.length)
+    }
+
 }
 
 if(document.readyState === 'complete') {go()}else{
@@ -227,7 +307,24 @@ function go(){
     });
     start.ChangeAvatar(start.heros, start.containers);
     start.InitKeyListener();
-    start.FillTile(start.gameRows, start.gameField, start.curTile,
-        start.playerDisplay, start.O_win, start.X_win, start.tie, start.announcer)
+    start.btnPlayerMode.addEventListener('click', () =>{
+        start.btnPlayerMode.classList.add('hidden');
+        start.btnComputerMode.classList.add('hidden');
+        start.buttonSType = 1;
+        start.FillTile(start.gameRows, start.gameField, start.curTile,
+            start.playerDisplay, start.O_win, start.X_win, start.tie,
+            start.announcer, start.buttonSType)
+    })
+    start.btnComputerMode.addEventListener('click', ()=>{
+        start.buttonSType = 2;
+        start.btnPlayerMode.classList.add('hidden');
+        start.btnComputerMode.classList.add('hidden');
+        start.FillTile(start.gameRows, start.gameField, start.curTile,
+            start.playerDisplay, start.O_win, start.X_win, start.tie,
+            start.announcer, start.buttonSType)
+
+    })
+    console.log(start.Rand(start.gameRows));
+
 }
 
