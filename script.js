@@ -151,7 +151,7 @@ class TicTacToe {
         if (this.GameCombination(gameRows)){
             if (currentPlayer === 'X'){
                 this.Announce(O_win, O_win, X_win, announcer, tie);
-            } else{
+            } else if(currentPlayer === 'O'){
                 this.Announce(X_win, O_win, X_win, announcer, tie);
             }return;
         }
@@ -183,6 +183,7 @@ class TicTacToe {
         playerDisplay.innerText = currentPlayer;
         playerDisplay.classList.add(`player${currentPlayer}`);
     }
+
 
     ChangeAvatar(heros, containers){
         heros.forEach(hero => {
@@ -247,13 +248,19 @@ class TicTacToe {
                 this.currentPlayer = 'X'
                 curPlayer = 'X';
             }
-            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
-            this.ComputerTurn(gameRows, this.Rand,curPlayer, O_win, X_win, tie, announcer)
+
+            this.ChekRoundRes(gameRows, curPlayer ='O', O_win, X_win, tie, announcer);
+            if (this.GameCombination(gameRows) !== true){
+                this.ChangePlayer(curPlayer, playerDisplay);
+                this.ComputerTurn(gameRows, this.Rand, curPlayer, O_win, X_win, tie, announcer, playerDisplay)
+                this.ChekRoundRes(gameRows, curPlayer='X', O_win, X_win, tie, announcer);
+            }
+
         }
     }
 
 
-    ComputerTurn(gameRows, Rand,curPlayer, O_win, X_win, tie, announcer ){
+    ComputerTurn(gameRows, Rand,curPlayer, O_win, X_win, tie, announcer, playerDisplay ){
         let row = Rand(gameRows);
         let col = Rand(gameRows);
         let tileComp = document.getElementById('row-'+ row + '-square-' + col)
@@ -263,30 +270,18 @@ class TicTacToe {
                 tileComp.innerText = 'O';
                 tileComp.classList.add('playerX');
                 this.currentPlayer = 'O'
-                curPlayer = 'O';
+                curPlayer = 'X';
             }else{
                 tileComp.innerText = 'O';
                 tileComp.classList.add('playerO');
                 this.currentPlayer = 'X'
-                curPlayer = 'X';
+                curPlayer = 'O';
             }
-            this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
+            this.ChekRoundRes(gameRows, curPlayer = 'X', O_win, X_win, tie, announcer);
+            console.log()
+
         }else{
             this.ComputerTurn(gameRows, Rand,curPlayer, O_win, X_win, tie, announcer)
-        }
-    }
-
-    Turn(curPlayer, tile){
-        if (curPlayer === 'X'){
-            tile.innerText = 'X';
-            tile.classList.add('playerX');
-            this.currentPlayer = 'O'
-            curPlayer = 'O';
-        }else{
-            tile.innerText = 'O';
-            tile.classList.add('playerO');
-            this.currentPlayer = 'X'
-            curPlayer = 'X';
         }
     }
 
@@ -311,6 +306,7 @@ function go(){
         start.btnPlayerMode.classList.add('hidden');
         start.btnComputerMode.classList.add('hidden');
         start.buttonSType = 1;
+        this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
         start.FillTile(start.gameRows, start.gameField, start.curTile,
             start.playerDisplay, start.O_win, start.X_win, start.tie,
             start.announcer, start.buttonSType)
