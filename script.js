@@ -306,7 +306,6 @@ function go(){
         start.btnPlayerMode.classList.add('hidden');
         start.btnComputerMode.classList.add('hidden');
         start.buttonSType = 1;
-        this.ChekRoundRes(gameRows, curPlayer, O_win, X_win, tie, announcer);
         start.FillTile(start.gameRows, start.gameField, start.curTile,
             start.playerDisplay, start.O_win, start.X_win, start.tie,
             start.announcer, start.buttonSType)
